@@ -22,6 +22,7 @@
             --white: #ffffff;
             --grey: #f4f4f4;
             --success: #10b981;
+            --danger: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -33,6 +34,10 @@
         .btn-yellow { background: var(--yellow); color: var(--black); }
         .btn-yellow:hover { background: var(--yellow-dim); }
         .btn-outline { background: transparent; border: 2px solid var(--yellow); color: var(--yellow); }
+        .btn-sm { padding: 5px 15px; font-size: 0.8rem; clip-path: none; border-radius: 4px; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        
         .hidden { display: none !important; }
 
         /* --- 1. LANDING PAGE --- */
@@ -45,7 +50,7 @@
         
         /* Hero */
         .hero { height: 90vh; display: flex; align-items: center; padding: 0 5%; background: linear-gradient(90deg, #0a0a0a 0%, rgba(10,10,10,0.8) 50%, rgba(10,10,10,0.1) 100%), url('https://images.pexels.com/photos/1579356/pexels-photo-1579356.jpeg'); background-size: cover; background-position: center; }
-        .hero-text { max-width: 600px; }https://www.pexels.com/collections/construction-sjwy6vz/
+        .hero-text { max-width: 600px; }
         .hero-text h1 { font-size: 4rem; line-height: 1; margin-bottom: 20px; }
         .hero-text span { color: var(--yellow); }
         .hero-text p { color: #ccc; margin-bottom: 30px; font-size: 1.1rem; }
@@ -100,7 +105,50 @@
         /* Site Log Table */
         .log-table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; }
         .log-table th { background: var(--black); color: white; padding: 12px; text-align: left; }
-        .log-table td { border-bottom: 1px solid #ddd; padding: 12px; }
+        .log-table td { border-bottom: 1px solid #ddd; padding: 12px; color: #333; }
+        .log-search { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px; }
+
+        /* Status Badges */
+        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+        .status-active { background: #dcfce7; color: #166534; }
+        .status-inactive { background: #f3f4f6; color: #4b5563; }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Sliders & Extra Sections Styles */
+        .section-fleet, .section-services, .section-projects, .section-testimonials, .section-contact {
+            padding: 80px 5%; position: relative; overflow: hidden;
+        }
+        .section-fleet { background: #1a1a1a; }
+        .section-services { background: var(--grey); }
+        .section-projects { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1590059390230-22c7a7266504?q=80&w=1470&auto=format&fit=crop');
+            background-attachment: fixed; background-size: cover; color: white; text-align: center;
+        }
+        .section-testimonials { background: white; text-align: center; }
+        .section-contact { padding: 0; display: flex; flex-wrap: wrap; }
+
+        .fleet-slider { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; scrollbar-width: none; }
+        .fleet-card { min-width: 300px; background: #222; border-bottom: 4px solid var(--yellow); padding-bottom:10px; }
+        .fleet-img { width: 100%; height: 200px; object-fit: cover; }
+        .fleet-info { padding: 20px; color: white; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card { background: white; padding: 40px 30px; border: 1px solid #ddd; transition: 0.3s; }
+        .service-card:hover { transform: translateY(-5px); border-bottom: 4px solid var(--yellow); }
+
+        .project-stats { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 50px; }
+        .p-stat h2 { font-size: 4rem; color: var(--yellow); margin-bottom: 10px; font-family: 'Oswald'; }
+        
+        .contact-info { flex: 1; background: var(--black); padding: 80px 5%; color: white; min-width: 300px; }
+        .contact-form-wrapper { flex: 1; background: var(--yellow); padding: 80px 5%; color: var(--black); min-width: 300px; }
+        .form-input { width: 100%; padding: 15px; border: 2px solid var(--black); background: transparent; margin-bottom: 20px; font-weight: bold; }
+
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--yellow); border: none; width: 40px; height: 40px; cursor: pointer; font-weight: bold; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
 
         /* Mobile */
         @media (max-width: 768px) {
@@ -109,101 +157,6 @@
             .menu-link span { display: none; }
             .main-area { margin-left: 70px; padding: 15px; }
             .hero-text h1 { font-size: 2.5rem; }
-        }
-
-
-
-
-
-
-        /* --- ANIMATIONS --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- SECTION 1: FLEET SLIDER --- */
-        .section-fleet { padding: 80px 5%; background: #1a1a1a; position: relative; overflow: hidden; }
-        .section-title { font-family: 'Oswald', sans-serif; font-size: 2.5rem; color: var(--white); text-transform: uppercase; margin-bottom: 40px; border-left: 5px solid var(--yellow); padding-left: 15px; }
-        .section-title span { color: var(--yellow); }
-
-        .slider-wrapper { position: relative; width: 100%; }
-        .fleet-slider { display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 20px; scrollbar-width: none; /* Firefox */ }
-        .fleet-slider::-webkit-scrollbar { display: none; /* Chrome */ }
-
-        .fleet-card { min-width: 300px; max-width: 350px; background: #222; border-bottom: 4px solid var(--yellow); transition: 0.3s; position: relative; }
-        .fleet-card:hover { transform: translateY(-5px); }
-        .fleet-img { width: 100%; height: 200px; object-fit: cover; filter: grayscale(80%); transition: 0.5s; }
-        .fleet-card:hover .fleet-img { filter: grayscale(0%); }
-        .fleet-info { padding: 20px; color: white; }
-        .fleet-info h4 { font-family: 'Oswald'; font-size: 1.5rem; margin-bottom: 5px; }
-
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--yellow); border: none; width: 40px; height: 40px; cursor: pointer; font-weight: bold; z-index: 10; display: flex; align-items: center; justify-content: center; }
-        .prev-btn { left: -10px; }
-        .next-btn { right: -10px; }
-
-        /* --- SECTION 2: SERVICES (CARDS) --- */
-        .section-services { padding: 80px 5%; background: var(--grey); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        .service-card { background: white; padding: 40px 30px; border: 1px solid #ddd; position: relative; overflow: hidden; transition: 0.3s; }
-        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--yellow); transition: 0.3s; }
-        .service-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: translateY(-5px); }
-        .service-card:hover::before { width: 100%; opacity: 0.1; }
-
-        .srv-icon { font-size: 2.5rem; color: var(--black); margin-bottom: 20px; }
-        .srv-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; color: var(--black); }
-        .srv-desc { color: #666; line-height: 1.6; font-size: 0.95rem; }
-
-        /* --- SECTION 3: PROJECTS (PARALLAX) --- */
-        .section-projects { 
-            padding: 100px 5%; 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1590059390230-22c7a7266504?q=80&w=1470&auto=format&fit=crop');
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-        }
-        .project-stats { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 50px; }
-        .p-stat h2 { font-size: 4rem; color: var(--yellow); margin-bottom: 10px; font-family: 'Oswald'; }
-        .p-stat p { font-size: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- SECTION 4: TESTIMONIALS --- */
-        .section-testimonials { padding: 80px 5%; background: white; text-align: center; }
-        .testi-container { max-width: 800px; margin: 0 auto; }
-        .quote-icon { font-size: 3rem; color: var(--yellow); margin-bottom: 20px; }
-        .testi-text { font-size: 1.4rem; font-style: italic; color: #444; margin-bottom: 30px; line-height: 1.5; }
-        .client-name { font-weight: bold; font-family: 'Oswald'; font-size: 1.2rem; }
-        .client-role { color: #888; font-size: 0.9rem; }
-
-        /* --- SECTION 5: CONTACT FORM --- */
-        .section-contact { padding: 0; display: flex; flex-wrap: wrap; }
-        .contact-info { flex: 1; min-width: 300px; background: var(--black); padding: 80px 5%; color: white; }
-        .contact-form-wrapper { flex: 1; min-width: 300px; background: var(--yellow); padding: 80px 5%; color: var(--black); }
-
-        .info-item { margin-bottom: 30px; display: flex; gap: 20px; align-items: flex-start; }
-        .info-icon { width: 40px; height: 40px; background: var(--yellow); color: black; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 50%; }
-
-        .form-group { margin-bottom: 20px; }
-        .form-input { width: 100%; padding: 15px; border: 2px solid var(--black); background: transparent; font-weight: bold; color: var(--black); outline: none; }
-        .form-input::placeholder { color: rgba(0,0,0,0.6); }
-        .form-input:focus { background: rgba(255,255,255,0.2); }
-        textarea.form-input { height: 120px; resize: none; }
-
-        .btn-black { background: var(--black); color: white; padding: 15px 40px; border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
-        .btn-black:hover { background: #333; }
-
-        /* Mobile Tweaks */
-        @media (max-width: 768px) {
-            .fleet-card { min-width: 85%; }
-            .project-stats { gap: 30px; }
-            .contact-form-wrapper { padding: 40px 5%; }
         }
     </style>
 </head>
@@ -232,120 +185,94 @@
         </header>
 
         <section class="info-strip">
-            <div class="info-box">
-                <h3>50+</h3>
-                <p>Heavy Machines</p>
-            </div>
-            <div class="info-box">
-                <h3>12</h3>
-                <p>Active Sites</p>
-            </div>
-            <div class="info-box">
-                <h3>100%</h3>
-                <p>Safety Record</p>
+            <div class="info-box"><h3>50+</h3><p>Heavy Machines</p></div>
+            <div class="info-box"><h3>12</h3><p>Active Sites</p></div>
+            <div class="info-box"><h3>100%</h3><p>Safety Record</p></div>
+        </section>
+
+        <!-- SECTION 1: FLEET SLIDER -->
+        <section class="section-fleet reveal">
+            <h2 style="font-family:'Oswald'; font-size:2.5rem; color:white; margin-bottom:30px; border-left:5px solid var(--yellow); padding-left:15px;">Our <span>Machinery</span></h2>
+            
+            <div class="slider-wrapper" style="position:relative;">
+                <button class="slider-btn prev-btn" onclick="slideFleet(-1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="fleet-slider" id="fleetSlider">
+                    <div class="fleet-card">
+                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1470" class="fleet-img">
+                        <div class="fleet-info"><h4>CAT 320 GC</h4><p style="color:#aaa;">Excavator | 22 Ton</p></div>
+                    </div>
+                    <div class="fleet-card">
+                        <img src="https://plus.unsplash.com/premium_photo-1664302152998-384e5579893d?q=80" class="fleet-img">
+                        <div class="fleet-info"><h4>CAT 140K</h4><p style="color:#aaa;">Motor Grader</p></div>
+                    </div>
+                    <div class="fleet-card">
+                        <img src="https://images.unsplash.com/photo-1591734570417-640986754025?q=80" class="fleet-img">
+                        <div class="fleet-info"><h4>Dynapac CA250</h4><p style="color:#aaa;">Roller</p></div>
+                    </div>
+                    <div class="fleet-card">
+                        <img src="https://images.unsplash.com/photo-1579760778000-032906e8642a?q=80" class="fleet-img">
+                        <div class="fleet-info"><h4>Mercedes Actros</h4><p style="color:#aaa;">Tipper Truck</p></div>
+                    </div>
+                </div>
+                <button class="slider-btn next-btn" onclick="slideFleet(1)"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
+
         <!-- SECTION 2: SERVICES -->
         <section class="section-services reveal">
-            <h2 class="section-title" style="color:var(--black);">Competence <span>Areas</span></h2>
+            <h2 style="font-family:'Oswald'; font-size:2.5rem; color:var(--black); margin-bottom:30px;">Our <span>Expertise</span></h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <i class="fas fa-road srv-icon"></i>
-                    <h3 class="srv-title">Civil Engineering</h3>
-                    <p class="srv-desc">From road grading to asphalt surfacing, our team manages complex civil infrastructure projects with precision across Zambia.</p>
+                    <i class="fas fa-road" style="font-size:2rem; margin-bottom:15px;"></i>
+                    <h3>Road Works</h3>
+                    <p style="color:#666;">Grading, compacting and surfacing for national highways and feeder roads.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-mountain srv-icon"></i>
-                    <h3 class="srv-title">Mining Support</h3>
-                    <p class="srv-desc">Providing robust machinery and operators for the Copperbelt region, ensuring 24/7 operational capability for mining sites.</p>
+                    <i class="fas fa-truck-loading" style="font-size:2rem; margin-bottom:15px;"></i>
+                    <h3>Mining Support</h3>
+                    <p style="color:#666;">Heavy duty equipment rental for open pit mining operations.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-water srv-icon"></i>
-                    <h3 class="srv-title">Bulk Earthworks</h3>
-                    <p class="srv-desc">Large scale land clearing, leveling, and excavation services for commercial developments and agricultural projects.</p>
+                    <i class="fas fa-hard-hat" style="font-size:2rem; margin-bottom:15px;"></i>
+                    <h3>Site Management</h3>
+                    <p style="color:#666;">Qualified operators, safety officers and site supervisors.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3: PARALLAX PROJECTS -->
+        <!-- SECTION 3: PROJECTS -->
         <section class="section-projects reveal">
             <h2 style="font-family:'Oswald'; font-size:3rem; margin-bottom:10px;">PROVEN TRACK RECORD</h2>
-            <p style="font-size:1.1rem; max-width:600px; margin:0 auto; opacity:0.9;">Delivering excellence on time and within budget for over 15 years.</p>
-            
             <div class="project-stats">
-                <div class="p-stat">
-                    <h2>30+</h2>
-                    <p>Projects Completed</p>
-                </div>
-                <div class="p-stat">
-                    <h2>1.5M</h2>
-                    <p>Km of Road Graded</p>
-                </div>
-                <div class="p-stat">
-                    <h2>24/7</h2>
-                    <p>Site Support</p>
-                </div>
+                <div class="p-stat"><h2>200+</h2><p>Projects</p></div>
+                <div class="p-stat"><h2>1.5M</h2><p>Km Graded</p></div>
+                <div class="p-stat"><h2>24/7</h2><p>Support</p></div>
             </div>
-            
-            <button class="btn btn-yellow" style="margin-top:40px;">VIEW CASE STUDIES</button>
         </section>
 
         <!-- SECTION 4: TESTIMONIALS -->
         <section class="section-testimonials reveal">
-            <div class="testi-container">
-                <i class="fas fa-quote-left quote-icon"></i>
-                <p class="testi-text">"Innova has been our primary plant hire partner for the Lusaka Ring Road project. Their machine availability and operator skill level are unmatched in the region."</p>
-                <div class="client-name">JOHN K. MWALE</div>
-                <div class="client-role">Project Manager, Lusaka Civil Works</div>
+            <div class="testi-container" style="max-width:800px; margin:0 auto;">
+                <i class="fas fa-quote-left" style="font-size:3rem; color:var(--yellow); margin-bottom:20px;"></i>
+                <p style="font-size:1.4rem; font-style:italic; color:#444; margin-bottom:30px;">"Innova has been our primary plant hire partner for the Lusaka Ring Road project. Their machine availability and operator skill level are unmatched."</p>
+                <div style="font-weight:bold; font-family:'Oswald';">JOHN K. MWALE</div>
+                <div style="color:#888;">Project Manager, Lusaka Civil Works</div>
             </div>
         </section>
 
-        <!-- SECTION 5: CONTACT FORM -->
+        <!-- SECTION 5: CONTACT -->
         <section class="section-contact reveal">
             <div class="contact-info">
-                <h2 style="font-family:'Oswald'; font-size:2.5rem; margin-bottom:30px;">GET IN TOUCH</h2>
-                <p style="color:#aaa; margin-bottom:40px;">Ready to deploy machinery to your site? Contact our dispatch team today.</p>
-                
-                <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <div>
-                        <h4 style="font-family:'Oswald'; margin-bottom:5px;">Head Office</h4>
-                        <p style="color:#ccc; font-size:0.9rem;">Plot 4552, Heavy Industrial Area,<br>Lusaka, Zambia</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-phone"></i></div>
-                    <div>
-                        <h4 style="font-family:'Oswald'; margin-bottom:5px;">Dispatch Line</h4>
-                        <p style="color:#ccc; font-size:0.9rem;">+260 977 123 456</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
-                    <div>
-                        <h4 style="font-family:'Oswald'; margin-bottom:5px;">Email Us</h4>
-                        <p style="color:#ccc; font-size:0.9rem;">hire@innovazambia.com</p>
-                    </div>
-                </div>
+                <h2>Contact Us</h2>
+                <p>Plot 4552, Heavy Industrial Area, Lusaka.</p>
+                <p>+260 977 123 456</p>
+                <p>hire@innovazambia.com</p>
             </div>
-
             <div class="contact-form-wrapper">
-                <h2 style="font-family:'Oswald'; font-size:2.5rem; margin-bottom:30px;">REQUEST QUOTE</h2>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="YOUR NAME">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-input" placeholder="EMAIL ADDRESS">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="PHONE NUMBER">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-input" placeholder="MACHINE REQUIREMENTS / PROJECT DETAILS"></textarea>
-                    </div>
-                    <button type="button" class="btn-black">SUBMIT REQUEST</button>
-                </form>
+                <h2>Request Quote</h2>
+                <input class="form-input" placeholder="Name">
+                <input class="form-input" placeholder="Phone">
+                <button class="btn" style="background:black; color:white; width:100%;">Send Request</button>
             </div>
         </section>
     </div>
@@ -357,8 +284,8 @@
             
             <label style="display:block; text-align:left; color:#888; font-size:0.8rem; margin-bottom:5px;">System Role (Demo)</label>
             <select id="role-select" class="role-switch">
-                <option value="worker">Worker (Clock-In Only)</option>
-                <option value="reception">Reception (Site Log)</option>
+                <option value="worker">Worker (Self Clock-In)</option>
+                <option value="reception">Reception (Gate Log)</option>
                 <option value="admin">Admin (Full Control)</option>
             </select>
 
@@ -378,7 +305,6 @@
         <aside class="sidebar">
             <div class="app-logo">ASP SYSTEM</div>
             <div class="menu-items">
-                <!-- Links visibility controlled by JS based on role -->
                 <div class="menu-link active" id="nav-dash" onclick="switchTab('dashboard')">
                     <i class="fas fa-chart-pie"></i> <span>Dashboard</span>
                 </div>
@@ -409,7 +335,7 @@
                 <div class="grid-dashboard">
                     <div class="card">
                         <h3>Active Workforce</h3>
-                        <div class="number">24</div>
+                        <div class="number" id="dash-active-count">0</div>
                     </div>
                     <div class="card">
                         <h3>Machines Deployed</h3>
@@ -454,46 +380,30 @@
                 </div>
             </div>
 
-            <!-- VIEW: RECEPTION LOG -->
+            <!-- VIEW: RECEPTION LOG (Updated for Full List & Actions) -->
             <div id="view-site-log" class="app-section hidden">
                 <div class="card">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                         <h2>Site Personnel Registry</h2>
                         <button class="btn btn-outline" style="padding:5px 10px; font-size:0.8rem; border-color:#000; color:#000;" onclick="downloadLog()">Download PDF</button>
                     </div>
                     
+                    <!-- Search Bar -->
+                    <input type="text" id="logSearch" class="log-search" placeholder="Search employee name..." onkeyup="filterSiteLog()">
+
                     <table class="log-table" id="printable-log">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Role</th>
-                                <th>Time In</th>
                                 <th>Machine</th>
+                                <th>Time In</th>
                                 <th>Status</th>
+                                <th id="action-header">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Agrippa Banda</td>
-                                <td>Operator</td>
-                                <td>07:00 AM</td>
-                                <td>Grader</td>
-                                <td style="color:green; font-weight:bold;">Active</td>
-                            </tr>
-                            <tr>
-                                <td>Rose Timba</td>
-                                <td>Flag Girl</td>
-                                <td>07:15 AM</td>
-                                <td>-</td>
-                                <td style="color:green; font-weight:bold;">Active</td>
-                            </tr>
-                            <tr>
-                                <td>John Zulu</td>
-                                <td>Mechanic</td>
-                                <td>08:00 AM</td>
-                                <td>-</td>
-                                <td style="color:orange; font-weight:bold;">Break</td>
-                            </tr>
+                        <tbody id="log-table-body">
+                            <!-- JS Populates this -->
                         </tbody>
                     </table>
                 </div>
@@ -504,6 +414,23 @@
 
     <!-- SCRIPT -->
     <script>
+        // --- DATA STORE (Simulated Database) ---
+        const employeeData = [
+            { id: 1, name: "Agrippa Banda", role: "Operator", machine: "Grader", timeIn: "07:00 AM", status: "Active" },
+            { id: 2, name: "Rose Timba", role: "Flag Girl", machine: "-", timeIn: "07:15 AM", status: "Active" },
+            { id: 3, name: "John Zulu", role: "Mechanic", machine: "-", timeIn: "-", status: "Inactive" },
+            { id: 4, name: "Peter Phiri", role: "Driver", machine: "Tipper", timeIn: "-", status: "Inactive" },
+            { id: 5, name: "Mary Soko", role: "Safety Officer", machine: "-", timeIn: "07:30 AM", status: "Active" },
+            { id: 6, name: "Davie Lungu", role: "Operator", machine: "Excavator", timeIn: "-", status: "Inactive" },
+            { id: 7, name: "Chanda Mwale", role: "Laborer", machine: "-", timeIn: "-", status: "Inactive" },
+            { id: 8, name: "Lameck Siachamba", role: "Grader Operator", machine: "Grader", timeIn: "07:20 AM", status: "Active" },
+            { id: 9, name: "Dismas Kabwe", role: "Dozer Operator", machine: "Dozer", timeIn: "-", status: "Inactive" },
+            { id: 10, name: "Patrick Chinyama", role: "Excavator Operator", machine: "Excavator", timeIn: "07:10 AM", status: "Active" },
+            { id: 11, name: "Charles Phiri", role: "Water Bowser", machine: "Bowser", timeIn: "-", status: "Inactive" }
+        ];
+
+        let currentUserRole = '';
+
         // --- AUTH LOGIC ---
         function openLogin() { document.getElementById('login-modal').style.display = 'flex'; }
         function closeLogin() { document.getElementById('login-modal').style.display = 'none'; }
@@ -529,11 +456,12 @@
 
         // --- APP LOGIC ---
         function initApp(role) {
+            currentUserRole = role;
             document.getElementById('landing-view').style.display = 'none';
             document.getElementById('login-modal').style.display = 'none';
             document.getElementById('app-view').style.display = 'block';
             
-            document.getElementById('user-name').innerText = role === 'admin' ? "System Admin" : "Agrippa Banda";
+            document.getElementById('user-name').innerText = role === 'admin' ? "System Admin" : (role === 'reception' ? "Reception Desk" : "Agrippa Banda");
             document.getElementById('user-role').innerText = role.toUpperCase();
 
             // Strict Role Visibility
@@ -541,7 +469,6 @@
             const shiftLink = document.getElementById('nav-shift');
             const logLink = document.getElementById('nav-log');
 
-            // Reset all
             dashLink.classList.add('hidden');
             shiftLink.classList.add('hidden');
             logLink.classList.add('hidden');
@@ -551,6 +478,7 @@
                 logLink.classList.remove('hidden');
                 switchTab('dashboard');
                 loadChart();
+                updateStats();
             } 
             else if (role === 'worker') {
                 shiftLink.classList.remove('hidden');
@@ -559,6 +487,7 @@
             else if (role === 'reception') {
                 logLink.classList.remove('hidden');
                 switchTab('site-log');
+                renderSiteLog(); // Load the full list for reception
             }
         }
 
@@ -566,44 +495,105 @@
             document.querySelectorAll('.app-section').forEach(el => el.classList.add('hidden'));
             document.getElementById('view-' + tabId).classList.remove('hidden');
             
-            // Update Title
             const titles = { 'dashboard': 'Overview', 'worker-shift': 'Operator Terminal', 'site-log': 'Gate Log' };
             document.getElementById('page-title').innerText = titles[tabId];
 
-            // Update Sidebar Active State
             document.querySelectorAll('.menu-link').forEach(el => el.classList.remove('active'));
-            // Find link with onclick containing the tabId (simple hack)
-            // Ideally use ID mapping, but for this demo:
             if(tabId === 'dashboard') document.getElementById('nav-dash').classList.add('active');
             if(tabId === 'worker-shift') document.getElementById('nav-shift').classList.add('active');
             if(tabId === 'site-log') document.getElementById('nav-log').classList.add('active');
         }
 
+        // --- RECEPTIONIST LOGIC ---
+        function renderSiteLog() {
+            const tbody = document.getElementById('log-table-body');
+            tbody.innerHTML = ""; // Clear existing
+
+            employeeData.forEach(emp => {
+                const tr = document.createElement('tr');
+                const statusClass = emp.status === 'Active' ? 'status-active' : 'status-inactive';
+                
+                // Determine button label/style based on status
+                const btnAction = emp.status === 'Active' 
+                    ? `<button class="btn-sm btn-danger" onclick="toggleWorkerStatus(${emp.id})">Clock Out</button>` 
+                    : `<button class="btn-sm btn-success" onclick="toggleWorkerStatus(${emp.id})">Clock In</button>`;
+
+                tr.innerHTML = `
+                    <td><strong>${emp.name}</strong></td>
+                    <td>${emp.role}</td>
+                    <td>${emp.machine}</td>
+                    <td>${emp.timeIn}</td>
+                    <td><span class="status-badge ${statusClass}">${emp.status}</span></td>
+                    <td>${btnAction}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleWorkerStatus(id) {
+            // Find employee
+            const emp = employeeData.find(e => e.id === id);
+            if(emp) {
+                if(emp.status === 'Active') {
+                    // Clock Out logic
+                    emp.status = 'Inactive';
+                    emp.timeIn = '-';
+                } else {
+                    // Clock In logic
+                    emp.status = 'Active';
+                    const now = new Date();
+                    emp.timeIn = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                }
+                // Refresh table
+                renderSiteLog();
+                // If admin is viewing, update stats too
+                if(currentUserRole === 'admin') updateStats();
+            }
+        }
+
+        function filterSiteLog() {
+            const input = document.getElementById('logSearch').value.toUpperCase();
+            const table = document.getElementById('log-table-body');
+            const tr = table.getElementsByTagName('tr');
+
+            for (let i = 0; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td")[0]; // Search by Name (1st column)
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+
+        function updateStats() {
+            const activeCount = employeeData.filter(e => e.status === 'Active').length;
+            document.getElementById('dash-active-count').innerText = activeCount;
+        }
+
+        // --- WORKER LOGIC ---
         function toggleShift(btn) {
             if(btn.innerText === "START SHIFT") {
                 const helmet = document.getElementById('ppe-helmet').checked;
                 const boots = document.getElementById('ppe-boots').checked;
-                
-                if(!helmet || !boots) {
-                    alert("⚠️ SAFETY ALERT: You cannot clock in without Helmet and Boots.");
-                    return;
-                }
+                if(!helmet || !boots) return alert("⚠️ SAFETY ALERT: You cannot clock in without Helmet and Boots.");
                 
                 btn.innerText = "END SHIFT";
-                btn.style.backgroundColor = "#ef4444"; // Red
+                btn.style.backgroundColor = "#ef4444";
                 btn.style.color = "white";
                 alert("Clocked in successfully at " + new Date().toLocaleTimeString());
             } else {
                 btn.innerText = "START SHIFT";
-                btn.style.backgroundColor = ""; // Reset to class style
+                btn.style.backgroundColor = ""; 
                 btn.style.color = "";
                 alert("Shift Ended. Total Hours: 8.5");
             }
         }
 
-        function logout() {
-            location.reload();
-        }
+        function logout() { location.reload(); }
 
         function downloadLog() {
             html2canvas(document.getElementById('printable-log')).then(canvas => {
@@ -614,7 +604,7 @@
             });
         }
 
-        // --- CHART (Admin Only) ---
+        // --- ANIMATIONS & CHART ---
         function loadChart() {
             const ctx = document.getElementById('adminChart').getContext('2d');
             new Chart(ctx, {
@@ -635,21 +625,13 @@
             });
         }
 
-
-        // --- NEW SECTION LOGIC ---
-
-        // 1. Fleet Slider Logic
         function slideFleet(direction) {
             const slider = document.getElementById('fleetSlider');
-            const scrollAmount = 320; // Width of card + gap
-            if(direction === 1) {
-                slider.scrollLeft += scrollAmount;
-            } else {
-                slider.scrollLeft -= scrollAmount;
-            }
+            const scrollAmount = 320;
+            if(direction === 1) { slider.scrollLeft += scrollAmount; } 
+            else { slider.scrollLeft -= scrollAmount; }
         }
 
-        // 2. Scroll Animation Observer
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -657,13 +639,8 @@
                         entry.target.classList.add('active');
                     }
                 });
-            }, {
-                threshold: 0.1 // Trigger when 10% of element is visible
-            });
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                observer.observe(el);
-            });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
     </script>
 
